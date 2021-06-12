@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	if len(os.Args) == 0 {
+	if len(os.Args) == 1 {
 		// TODO: Show help section!
 		fmt.Println("Please provide a search pattern")
 		return
 	}
 
-	log.Println("Hello world!")
+	log.Println("Search pattern: " + os.Args[1])
 }
