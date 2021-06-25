@@ -19,7 +19,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	crawler := crawler.Crawler{}
 	matches, err := crawler.Crawl(dir, os.Args[1])
 
