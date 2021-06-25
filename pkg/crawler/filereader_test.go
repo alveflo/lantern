@@ -7,7 +7,7 @@ import (
 
 func TestSearch(t *testing.T) {
 	fr := FileReader{}
-	a,err := fr.Get("../../resources/lorem-ipsum.txt", "dolor")
+	a, err := fr.Get("../../resources/lorem-ipsum.txt", "dolor")
 
 	if err != nil {
 		log.Println(err)

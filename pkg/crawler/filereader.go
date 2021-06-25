@@ -7,17 +7,19 @@ import (
 )
 
 type Match struct {
+	FileName   string
 	LineNumber int
-	Column int
-	Text string
+	Column     int
+	Text       string
 }
 
 type FileReader struct{}
 
 func getPrettyPrint(text string, match string, index int) string {
-	value := strings.Replace(text, match, "\x1b[32m\033[1m" + match + "\033[0m\x1b[2m",-1)
+	value := strings.Replace(text, match, "\x1b[32m\033[1m"+match+"\033[0m\x1b[2m", -1)
 
-	value = "\x1b[2m"+value+"\x1b[0m"
+	value = "\x1b[2m" + value + "\x1b[0m"
+	value = strings.TrimSpace(value)
 	return value
 }
 
@@ -28,29 +30,29 @@ func (f *FileReader) Get(fileName string, searchPattern string) ([]Match, error)
 	}
 
 	defer file.Close()
-
 	scanner := bufio.NewScanner(file)
 
 	scanner.Split(bufio.ScanLines)
 	var text []string
 
-    for scanner.Scan() {
-        text = append(text, scanner.Text())
-    }
+	for scanner.Scan() {
+		text = append(text, scanner.Text())
+	}
 
-    file.Close()
+	file.Close()
 
 	var matches []Match
-    for index, line := range text {
+	for index, line := range text {
 		if strings.Contains(line, searchPattern) {
 			column := strings.Index(line, searchPattern)
 			matches = append(matches, Match{
+				FileName:   fileName,
 				LineNumber: index + 1,
-				Column: column,
-				Text: getPrettyPrint(line, searchPattern, column),
+				Column:     column,
+				Text:       getPrettyPrint(line, searchPattern, column),
 			})
 		}
-    }
+	}
 
 	return matches, nil
 }

@@ -1,3 +1,3 @@
-module github.com/alveflo/lantern.git
+module github.com/alveflo/lantern
 
 go 1.16
